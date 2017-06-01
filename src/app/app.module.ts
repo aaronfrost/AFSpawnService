@@ -6,13 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MdButtonModule, MdCheckboxModule, MdDialogModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { AppDummyComponentComponent } from './app-dummy-component/app-dummy-component.component';
-import { SpawnService } from './spawn.service';
+import { AppDummyComponent } from './app-dummy/app-dummy.component';
+import { AFSpawnService } from './af-spawn.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppDummyComponentComponent
+    AppDummyComponent
   ],
   imports: [
     BrowserModule,
@@ -23,10 +23,10 @@ import { SpawnService } from './spawn.service';
     MdDialogModule,
     BrowserAnimationsModule,
   ],
-  providers: [SpawnService],
+  providers: [AFSpawnService],
   bootstrap: [AppComponent],
   entryComponents: [
-    AppDummyComponentComponent
+    AppDummyComponent
   ]
 })
 export class AppModule { }
