@@ -44,13 +44,13 @@ export class AFSpawnService {
     }
 
     // Subscribe to the new observable for updated input values
-    context$.subscribe(()=>{
+    unsubs.push( context$.subscribe(()=>{
       factory.inputs.forEach(i=>{
         if(context[i.propName] !== undefined){
           componentRef.instance[i.propName] = context[i.propName];
         }
       })
-    });
+    }) );
 
     // This function will be returned to the caller, to be called when their context is destroyed
     let detach = ()=>{
