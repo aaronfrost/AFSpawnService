@@ -3,34 +3,99 @@ This is a Angular/TypeScript service that will dynamically create components in 
 
 The current version of this repo contains an example of the `AFSpawnService`. Very soon in the future, I will
  update this repo so that `AFSpawnService` is available on npm. 
+ 
+ 
+### How to use AFSpawnService?
+####Install
+ `npm install --save afspawnservice`
+ 
+####Import
+ `import { AFSpawnService } from 'afspawnservice'`
+ 
+####Inject
+ In a component/module/service file, you will want to inject the `AFSpawnService`
+ ```typescript
+@Component({
+    selector: 'my-component',
+    templateUrl: './my-component.html'
+})
+export class MyComponent{
+
+    //Inject it into your component or service    
+    constructor(private spawnService: AFSpawnService){}
+
+}
+```
+
+####Spawning a component
+ First import the component class that you want to spawn, and then call the spawn service, and pass in the class to it. 
+ 
+ _Note: that since there was no second parameter provided, the spawned component will be attached to the `document.body`_
+
+```typescript
+import { FooComponent } from '...somewhere'
+
+//inside the class
+export class AppComponent{
+  
+    constructor(private spawnService: AFSpawnService){}
+    
+    // This is where you spawn the FooComponent
+    showFooComponent(){
+        let context = {title: 'Brocchi Rocks'};
+        let spawnRef = this.spawnService.createComponent(FooComponent);
+    }
+}
+```
+
+#### Providing a ViewContainerRef
+If you provide a second argument, and that second argument is a `ViewContainerRef`, then `AFSpawnService` will attach
+the spawned component to the provided `ViewContainerRef`.
+  
+In order to get access to a `ViewContainerRef`, you can add a [Template Reference Variable](https://angular.io/guide/template-syntax#template-reference-variables--var-)
+to your template on the element that you would like to append the spawned component to. Then in your class, you can get 
+access to that part of the template by annotating your class like so:
+
+```typescript
+export class AppComponent{  
+    // Name your ViewContainerRef
+    @ViewChild('temprefvar', {read: ViewContainerRef})
+  
+    constructor(private spawnService: AFSpawnService){}
+    
+    // AND NOW PASS THAT IN HERE
+    showFooComponent(){
+        let context = {title: 'Brocchi Rocks'};
+        let spawnRef = this.spawnService.createComponent(FooComponent, this.temprefvar);
+    }
+}
+```
+This will attach the spawned component to to view that you provided. 
+
+#### Passing Inputs and Outputs
+There are two ways to pass inputs/outputs to the spawned component. The first is by passing a key/value object as the third
+parameter to the `createComponent` method. 
+
+The second way is by saving the result of the `createComponent` call, and then call `.next()` on it with a key/value object.
+The keys needs to match the names of the inputs and outputs. 
+
+```typescript
+//First way                                                     ||| HERE |||                                           
+this.spawnService.createComponent(FooComponent, this.temprefvar, {title: "HELLO WORLD"})
+
+//Second Way
+let spawnRef = this.spawnService.createComponent(FooComponent, this.temprefvar);
+spawnRef.next({title: "HELLO WORLD"});
+```
+You can call `.next()` on the `spawnReference` as often as you would like. It will continue to update the values on your spawned component. 
+Let me know if you have questions.
 
 ## If there are any questions, please file an issue. 
 
 ---
 
+## Contributing
+
+This Repo is accepting Pull Requests. 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.2.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

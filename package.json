@@ -1,7 +1,11 @@
 {
-  "name": "ng2caas",
-  "version": "0.0.0",
+  "name": "afspawnservice",
+  "version": "1.0.1",
+  "description": "This is an Angular service that allows you to spawn components on-the-fly, with a service call. For more details, watch my talk here: https://www.youtube.com/watch?v=-Hy-i4q8Vtg&t=38s",
+  "main": "main.js",
+  "author": "Frosty <aaron@frosty.io>",
   "license": "MIT",
+  "homepage": "https://github.com/aaronfrost/AFSpawnService",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +14,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "directories":{
+    "type": "git",
+    "url": "git@github.com:aaronfrost/AFSpawnService.git"
+  },
   "dependencies": {
     "@angular/animations": "^4.1.3",
     "@angular/common": "^4.0.0",
