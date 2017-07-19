@@ -37,7 +37,7 @@ export class AFSpawnService {
     // Turn the provided inputs into an observable (if not already an observable)
     let observableSymbol = getSymbolObservable(window);
     let context$;
-    if(context[observableSymbol]){
+    if(context && context[observableSymbol]){
       context$ = context;
     } else {
       context$ = new BehaviorSubject(context);
