@@ -5,19 +5,19 @@ and attach them to a view.
 The current version of this repo supports installing `AFSpawnService` into your project
  via npm, and using the service to init your own components on-the-fly.
   
-###To learn more about `AFSpawnService`
+### To learn more about `AFSpawnService`
 If you want to know more about `AFSpawnService`, or you need to understand the need
 for the service, please check out my talk about [CAAS: Components As A Service](https://youtu.be/-Hy-i4q8Vtg).
  
  
 ### How to use AFSpawnService?
-####Install
+#### Install
  `npm install --save afspawnservice`
  
-####Import
+#### Import
  `import { AFSpawnService } from 'afspawnservice'`
  
-####Inject
+#### Inject
  In a component/module/service file, you will want to inject the `AFSpawnService`
  ```typescript
 @Component({
