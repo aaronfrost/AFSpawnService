@@ -32,7 +32,22 @@ export class MyComponent{
 }
 ```
 
-####Spawning a component
+#### Add to `appModule.entryComponents`
+In order to be able to spawn a component like this, you have to tell Angular that this component is an 
+`entryComponent`. This means that it isn't a child component of any other components. It is a top-level
+component. If you don't do this, you can't dynamically create the component with `AFSpawnService`.  
+
+Here is how you do this:
+```typescript
+@NgModule({
+    ...              //  ▼▼▼ By adding your component to the entryComponents, it is now ready to be spawned dynamically 
+    entryComponents: [ FooComponent ]
+    ...
+})
+export class AppModule{}
+```
+
+#### Spawning a component
  First import the component class that you want to spawn, and then call the spawn service, and pass in the class to it. 
  
  _Note: that since there was no second parameter provided, the spawned component will be attached to the `document.body`_
