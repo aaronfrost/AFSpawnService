@@ -2,7 +2,7 @@ import {
   Injectable, ViewContainerRef, ComponentFactoryResolver, ApplicationRef, Injector,
   ComponentFactory
 } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Subscription} from "rxjs";
 import {getSymbolObservable} from "rxjs/symbol/observable";
 import {SpawnReference} from "./interfaces/SpawnReference";
 
@@ -54,9 +54,11 @@ export class AFSpawnService {
 
     // This function will be returned to the caller, to be called when their context is destroyed
     let detach = ()=>{
-      !vcr && this.appRef.detachView(componentRef.hostView);
+      if (!vcr) {
+        this.appRef.detachView(componentRef.hostView);
+      }
       componentRef.destroy();
-      unsubs.forEach(u=>u());
+      unsubs.map(u => { if (!u.closed) { u.unsubscribe(); } });
     };
 
     // This function will be returned to the caller, to be called when there are new values for the inputs
@@ -76,7 +78,7 @@ export class AFSpawnService {
   }
 
   // Internal function to add event emitters for each of the provide outputs
-  _wireOutputs(factory: ComponentFactory<any>, componentRef: any, context: {[key:string]: any}): Array<Function>{
+  _wireOutputs(factory: ComponentFactory<any>, componentRef: any, context: {[key:string]: any}): Array<Subscription>{
     let unsubs = [];
     factory.outputs.forEach(o=>{
       if(context[o.propName] && context[o.propName] instanceof Function){
