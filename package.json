@@ -1,6 +1,6 @@
 {
   "name": "afspawnservice",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "This is an Angular service that allows you to spawn components on-the-fly, with a service call. For more details, watch my talk here: https://www.youtube.com/watch?v=-Hy-i4q8Vtg&t=38s",
   "main": "main.js",
   "author": "Frosty <aaron@frosty.io>",
